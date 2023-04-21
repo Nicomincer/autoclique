@@ -25,8 +25,8 @@ class Aplicação():
         th_loop_click.start()
 
     def loop_click(self):        
-        tempo_limite = time() + 30
-        while time() < tempo_limite and self.rodando:
+
+        while self.rodando:
                sleep(0.05)
                pyautogui.click()
                if keyboard.is_pressed("n"):
