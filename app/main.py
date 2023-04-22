@@ -2,11 +2,20 @@ import pyautogui
 import tkinter 
 import keyboard
 import threading
-from time import time, sleep
+from time import sleep
+import sqlite3
 
 
 class Aplicação():
-    def __init__(self):
+    def __init__(self, tecla="n"):
+        self.tecla = tecla
+        #self.banco = sqlite3.connect("keyboard")
+        #self.cursor = self.banco.cursor()
+        #self.cursor.execute("""CREATE TABLE IF NOT EXISTS inputs(ID INT PRIMARY KEY,
+        #tecla CHAR(1),
+        #);""")
+        #self.cursor.execute("INSERT INTO inputs(tecla) VALUES(1, "+self.tecla+");")
+        self.banco.commit()
         self.rodando = False
         self.janela = tkinter.Tk()
         self.janela.geometry("300x50")
@@ -15,6 +24,13 @@ class Aplicação():
         self.botao_iniciar.place(relx=0.01, rely=0.5)
         self.botao_parar = tkinter.Button(self.janela, text="STOP", command=self.parar, width=20)
         self.botao_parar.place(relx=0.5, rely=0.5)
+        self.barra_de_menus = tkinter.Menu(self.janela)
+        self.menu1 = tkinter.Menu(self.barra_de_menus, tearoff=False)
+        self.menu1.add_command(label="Input to Stop", command=self.button)
+        self.menu1.add_command(label="")
+        self.barra_de_menus.add_cascade(label="Keyboard", menu=self.menu1)
+        self.janela.config(menu=self.barra_de_menus)
+
         self.janela.mainloop()
 
     def clicar(self):
@@ -29,14 +45,25 @@ class Aplicação():
         while self.rodando:
                sleep(0.05)
                pyautogui.click()
-               if keyboard.is_pressed("n"):
+               if keyboard.is_pressed(self.tecla):
                     self.parar()
           
         self.rodando = False
 
     def parar(self):
         self.rodando = False
-          
+    
+    def button(self):
+        self.texto = tkinter.Label(self.janela, text="Stop Button", font=('arial', 10))
+        self.texto.place(relx=0, rely=0)
+        self.entrada = tkinter.Entry(self.janela, width=10)
+        self.entrada.place(relx=0.3, rely=0)
+        self.botaoadd = tkinter.Button(self.janela, text="ADD", command=self.mudar_button)
+        self.botaoadd.place(relx=0.5, rely=0)
+    
+    def mudar_button(self):
+        self.tecla = self.entrada.get()
+        #self.cursor.execute("UPDATE tecla FROM inputs WHERE ID=1;")
 
 if __name__ == "__main__":
-     app = Aplicação()
+    app = Aplicação()
