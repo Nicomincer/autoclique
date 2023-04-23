@@ -9,12 +9,6 @@ import sqlite3
 class Aplicação():
     def __init__(self, tecla="n"):
         self.tecla = tecla
-        #self.banco = sqlite3.connect("keyboard")
-        #self.cursor = self.banco.cursor()
-        #self.cursor.execute("""CREATE TABLE IF NOT EXISTS inputs(ID INT PRIMARY KEY,
-        #tecla CHAR(1),
-        #);""")
-        #self.cursor.execute("INSERT INTO inputs(tecla) VALUES(1, "+self.tecla+");")
         self.banco.commit()
         self.rodando = False
         self.janela = tkinter.Tk()
@@ -63,7 +57,6 @@ class Aplicação():
     
     def mudar_button(self):
         self.tecla = self.entrada.get()
-        #self.cursor.execute("UPDATE tecla FROM inputs WHERE ID=1;")
 
 if __name__ == "__main__":
     app = Aplicação()
