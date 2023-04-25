@@ -3,13 +3,11 @@ import tkinter
 import keyboard
 import threading
 from time import sleep
-import sqlite3
 
 
 class Aplicação():
     def __init__(self, tecla="n"):
         self.tecla = tecla
-        self.banco.commit()
         self.rodando = False
         self.janela = tkinter.Tk()
         self.janela.geometry("300x50")
