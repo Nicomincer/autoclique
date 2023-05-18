@@ -4,10 +4,10 @@ import keyboard
 import threading
 from time import sleep
 
-
 class Aplicação():
     def __init__(self, tecla="n"):
-        self.tecla = tecla
+        self.tecla = Aplicação.inicializar(tecla)
+        print(self.tecla)
         self.rodando = False
         self.janela = tkinter.Tk()
         self.janela.geometry("300x50")
@@ -37,7 +37,7 @@ class Aplicação():
         while self.rodando:
                sleep(0.05)
                pyautogui.click()
-               if keyboard.is_pressed(self.tecla):
+               if keyboard.is_pressed(f"{self.tecla}"):
                     self.parar()
           
         self.rodando = False
@@ -55,6 +55,19 @@ class Aplicação():
     
     def mudar_button(self):
         self.tecla = self.entrada.get()
+        config = open("config", "wt")
+        config.write(f"stop: {self.tecla}")
+    
+    @classmethod
+    def inicializar(cls, tecla):
+        try:
+            config = open("config", "x")
+            config = open("config", "at")
+            config.write(f"stop: {tecla}")
+        except FileExistsError:
+            config = open("config", "rt")
+            botao = config.read()[6]
+            return botao
 
 if __name__ == "__main__":
     app = Aplicação()
