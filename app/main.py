@@ -7,7 +7,6 @@ from time import sleep
 class Aplicação():
     def __init__(self, tecla="n"):
         self.tecla = Aplicação.inicializar(tecla)
-        print(self.tecla)
         self.rodando = False
         self.janela = tkinter.Tk()
         self.janela.geometry("300x50")
