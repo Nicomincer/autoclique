@@ -63,6 +63,8 @@ class Aplicação():
             config = open("config", "x")
             config = open("config", "at")
             config.write(f"stop: {tecla}")
+            botao = config.read()[6]
+            return botao
         except FileExistsError:
             config = open("config", "rt")
             botao = config.read()[6]
